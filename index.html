@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="보송함">
+  <meta name="theme-color" content="#fbf6f0">
+  <title>보송함</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icons/icon-180.png">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- 보관함 -->
+  <section id="library" class="view">
+    <header class="lib-header">
+      <div class="brand">
+        <img src="icons/icon.svg" alt="">
+        <h1>보송함</h1>
+      </div>
+      <label class="btn primary" for="file-input">＋ 도안 추가</label>
+      <input id="file-input" type="file" accept="application/pdf,.pdf" multiple hidden>
+    </header>
+    <nav class="tabs" id="tabs">
+      <button data-filter="all" class="on">전체</button>
+      <button data-filter="wip">뜨는 중</button>
+      <button data-filter="done">완성</button>
+    </nav>
+    <div id="grid" class="grid"></div>
+    <div id="empty" class="empty" hidden>
+      <div class="ball">🧶</div>
+      <h2>아직 도안이 없어요</h2>
+      <p>PDF 도안을 추가하면 여기에 모아둘게요.<br>어디까지 떴는지도, 몇 단째인지도 기억해 둘게요.</p>
+      <label class="btn primary" for="file-input">＋ 첫 도안 추가하기</label>
+    </div>
+  </section>
+
+  <!-- 도안 보기 -->
+  <section id="viewer" class="view" hidden>
+    <header class="vbar">
+      <button id="back" class="icon-btn" aria-label="보관함으로">‹</button>
+      <button id="title" class="title"></button>
+      <div class="vbar-tools">
+        <button id="zoom-out" class="icon-btn" aria-label="축소">−</button>
+        <span id="zoom-label">100%</span>
+        <button id="zoom-in" class="icon-btn" aria-label="확대">＋</button>
+        <button id="shade-toggle" class="chip hide-sm">지난 부분 흐리게</button>
+        <button id="goto-marker" class="chip">📍 표시 위치</button>
+        <button id="panel-toggle" class="chip on">카운터</button>
+      </div>
+    </header>
+    <div class="vbody">
+      <div id="scroller" class="scroller">
+        <div id="pages" class="pages">
+          <div id="shade" class="shade"></div>
+          <div id="marker" class="marker" hidden>
+            <div class="grip">
+              <button data-nudge="-1" aria-label="한 줄 위로">▲</button>
+              <button data-nudge="1" aria-label="한 줄 아래로">▼</button>
+            </div>
+            <div class="resize" aria-label="굵기 조절"></div>
+          </div>
+        </div>
+      </div>
+      <aside id="panel" class="panel">
+        <div id="counters"></div>
+        <button id="add-counter" class="btn ghost">＋ 카운터 추가</button>
+      </aside>
+    </div>
+    <div id="page-ind" class="page-ind">1 / 1</div>
+  </section>
+
+  <div id="sheet" class="sheet" hidden><div class="box"></div></div>
+  <div id="toast" class="toast" hidden></div>
+  <div id="loading" class="loading" hidden>불러오는 중…</div>
+
+  <script src="vendor/pdfjs/pdf.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
